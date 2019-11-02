@@ -15,12 +15,18 @@ config :lychee, LycheeWeb.Endpoint,
   url: [host: "localhost"],
   secret_key_base: "cRM9HXoNi/av9rKJYIsoVnOpoU6SSP8/hy83yg+mi8Rb0glXQjsxNdUKAI0plbtm",
   render_errors: [view: LycheeWeb.ErrorView, accepts: ~w(html json)],
-  pubsub: [name: Lychee.PubSub, adapter: Phoenix.PubSub.PG2]
+  pubsub: [name: Lychee.PubSub, adapter: Phoenix.PubSub.PG2],
+  live_view: [
+    signing_salt: "7HekGYwxATz33gM/rH9q2mV+uKJq5/Hu"
+  ]
 
 # Configures Elixir's Logger
 config :logger, :console,
   format: "$time $metadata[$level] $message\n",
   metadata: [:request_id]
+
+config :phoenix,
+  template_engines: [leex: Phoenix.LiveView.Engine]
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

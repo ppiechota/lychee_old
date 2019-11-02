@@ -1,6 +1,8 @@
 defmodule LycheeWeb.Endpoint do
   use Phoenix.Endpoint, otp_app: :lychee
 
+  socket "/live", Phoenix.LiveView.Socket
+
   socket "/socket", LycheeWeb.UserSocket,
     websocket: true,
     longpoll: false

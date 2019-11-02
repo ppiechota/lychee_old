@@ -5,8 +5,11 @@ defmodule LycheeWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_flash
+    plug Phoenix.LiveView.Flash
     plug :protect_from_forgery
     plug :put_secure_browser_headers
+    plug LycheeWeb.Authenticator
+    plug :put_layout, {LycheeWeb.LayoutView, :app}
   end
 
   pipeline :api do
@@ -16,7 +19,14 @@ defmodule LycheeWeb.Router do
   scope "/", LycheeWeb do
     pipe_through :browser
 
-    get "/", PageController, :index
+    live "/", CounterLive
+
+    get "/users", UserController, :new
+    post "/users", UserController, :create
+
+    get "/login", SessionController, :new
+    post "/login", SessionController, :create
+    delete "/logout", SessionController, :delete
   end
 
   # Other scopes may use custom stacks.
