@@ -1,0 +1,2 @@
+<h1>Schedule for <strong><%= @id %> </strong> </h1>
+<%= link "Dodaj", to: Routes.schedule_path(@conn, :edit, @id) %>

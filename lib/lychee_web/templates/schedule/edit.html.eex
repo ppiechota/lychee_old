@@ -1,0 +1,2 @@
+<h1>Add item to <strong><%= @id %> </strong> schedule</h1>
+<%= live_render(@conn, LycheeWeb.ItemLive) %>

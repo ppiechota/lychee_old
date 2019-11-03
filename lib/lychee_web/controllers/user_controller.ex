@@ -20,9 +20,6 @@ defmodule LycheeWeb.UserController do
     requested_user_id = conn.params |> Map.get("id") |> String.to_integer()
 
     if current_user == nil || requested_user_id != current_user.id do
-      IO.puts("current_user: " <> current_user)
-      IO.puts("requested_user: " <> requested_user_id)
-
       conn
       |> put_flash(:error, "Brak dostępu")
       |> redirect(to: Routes.session_path(conn, :new))

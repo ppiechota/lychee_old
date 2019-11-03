@@ -1,0 +1,10 @@
+<form action="#" phx-submit="search">
+  <%= text_input :search, :phrase, placeholder: "What item do you want to search for?" %>
+  <%= submit "Search", phx_disable_with: "Searching..." %>
+</form>
+
+<%= for item <- @items do %>
+    <li>
+      <strong>Produkt: </strong> <%= item.name %>
+    </li>
+<% end %>

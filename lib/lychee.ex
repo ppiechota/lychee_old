@@ -1,6 +1,16 @@
 defmodule Lychee do
-  alias Lychee.{User, Password}
+  import Ecto.Query
+  alias Lychee.{User, Password, Item}
   @repo Lychee.Repo
+
+  def search_items(name) do
+    query =
+      from(a in Item,
+        where: a.name == ^name
+      )
+
+    @repo.all(query)
+  end
 
   def get_user(id), do: @repo.get!(User, id)
 

@@ -11,7 +11,7 @@ defmodule LycheeWeb.SessionController do
         conn
         |> put_session(:user_id, user.id)
         |> put_flash(:info, "Successfully logged in")
-        |> redirect(to: Routes.user_path(conn, :new))
+        |> redirect(to: Routes.schedule_path(conn, :show, Date.utc_today() |> Date.to_string()))
 
       _ ->
         conn

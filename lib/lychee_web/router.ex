@@ -27,10 +27,7 @@ defmodule LycheeWeb.Router do
     get "/login", SessionController, :new
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
-  end
 
-  # Other scopes may use custom stacks.
-  # scope "/api", LycheeWeb do
-  #   pipe_through :api
-  # end
+    resources "/schedule", ScheduleController, [:show, :edit]
+  end
 end
