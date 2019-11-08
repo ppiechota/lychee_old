@@ -1,2 +1,17 @@
 <h1>Schedule for <strong><%= @id %> </strong> </h1>
+
+<table>
+  <thead>
+    <tr>
+      <td>Produkt</td><td>Kcal</td>
+    </tr>
+  </thead>
+  <tbody>
+    <%= for item <- @items do %>
+      <tr><td><%= item.name %> </td><td></td></tr>
+    <% end %>
+  </tbody>
+</table>
+
+
 <%= link "Dodaj", to: Routes.schedule_path(@conn, :edit, @id) %>

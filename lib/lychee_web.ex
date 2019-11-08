@@ -24,6 +24,7 @@ defmodule LycheeWeb do
       import Plug.Conn
       import LycheeWeb.Gettext
       alias LycheeWeb.Router.Helpers, as: Routes
+      import Phoenix.LiveView.Controller
     end
   end
 

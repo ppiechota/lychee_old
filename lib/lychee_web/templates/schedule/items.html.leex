@@ -5,6 +5,14 @@
 
 <%= for item <- @items do %>
     <li>
-      <strong>Produkt: </strong> <%= item.name %>
+      <strong>Produkt: </strong> 
+      <%= item.name %> 
+      <button 
+        phx-click="add_item" 
+        phx-value-item_id="<%= item.id %>" 
+        phx-value-schedule_id="<%= @schedule_id %>"
+        phx-value-user_id="<%= @user_id %>"
+      >Dodaj
+      </button>
     </li>
 <% end %>
