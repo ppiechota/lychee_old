@@ -1,15 +1,25 @@
 <h1>Schedule for <strong><%= @id %> </strong> </h1>
 
-<table>
+<table class="table-fixed">
   <thead>
     <tr>
-      <td>Produkt</td><td>Kcal</td>
+      <th class="px-4 py-2">Produkt</th>
+      <th class="px-4 py-2">Kcal</th>
+      <th class="px-4 py-2">Białko</th>
+      <th class="px-4 py-2">Tłuszcze</th>
+      <th class="px-4 py-2">Węglowodany</th>
     </tr>
   </thead>
   <tbody>
-    <%= for item <- @items do %>
-      <tr><td><%= item.name %> </td><td></td></tr>
-    <% end %>
+  <%= for item <- @items do %>
+    <tr class="bg-gray-200">
+      <td class="border px-4 py-2"><%= item.name %> </td>
+      <td class="border px-4 py-2"><%= item.kcal %> </td>
+      <td class="border px-4 py-2"><%= item.proteins %> </td>
+      <td class="border px-4 py-2"><%= item.fat %> </td>
+      <td class="border px-4 py-2"><%= item.carbs %> </td>
+    </tr>
+  <% end %>
   </tbody>
 </table>
 
