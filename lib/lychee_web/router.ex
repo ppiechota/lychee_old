@@ -29,5 +29,7 @@ defmodule LycheeWeb.Router do
     delete "/logout", SessionController, :delete
 
     resources "/schedule", ScheduleController, [:show, :edit]
+
+    resources "/item", ItemController, [:index, :show, :edit]
   end
 end

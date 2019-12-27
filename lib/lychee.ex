@@ -83,6 +83,20 @@ defmodule Lychee do
     @repo.all(query)
   end
 
+  @doc """
+    Lists all items
+
+    ### Parameters
+
+  """
+
+  @spec get_all_items() :: [%Item{}]
+
+  def get_all_items() do
+    query = from(a in Item)
+    @repo.all(query)
+  end
+
   def get_user(id), do: @repo.get!(User, id)
 
   def new_user, do: User.changeset_with_password(%User{})
