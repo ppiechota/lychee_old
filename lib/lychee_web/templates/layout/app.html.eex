@@ -8,14 +8,32 @@
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
   </head>
   
-  <body id="app" class="bg-gray-200 antialiased">
+  <body class="h-screen flex bg-gray-200">
 
-    <header class="flex justify-between bg-gray-900 px-4 py-3">
-      <div class="flex justify-start text-gray-300"> 
-        <button class="px-4 py-2">Menu</button>
-        <div class="px-4 py-2">Lychee</div>
-      </div>
-      <div class="text-blue-300">
+    <div id="main" class="w-screen border-2 border-red-600"> 
+
+      <header class="flex justify-between bg-gray-900 px-10 py-3">
+        <div class="flex justify-start text-white"> 
+          <button class="py-2" onclick="toggleNav()">
+            <%= icon_tag(@conn, "menu", class: "h-6 w-6 text-white fill-current") %>
+          </button>
+          <div class="px-4 py-2">Lychee</div>
+        </div>
+        <div class="text-blue-300">
+          <%= if @current_user do %>
+            Logged in as <%= @current_user.username %>
+            |
+            <%= link "Log out", to: Routes.session_path(@conn, :delete), method:
+            :delete %>
+          <% else %>
+            <%= link "Sign up", to: Routes.user_path(@conn, :new) %> 
+            |
+            <%= link "Login", to: Routes.session_path(@conn, :new) %>
+          <% end %>
+        </div>
+      </header>
+
+      <nav id="side_bar" class="fixed hidden w-screen h-screen-1/2 bg-gray-900">
         <%= if @current_user do %>
           Logged in as <%= @current_user.username %>
           |
@@ -26,15 +44,25 @@
           |
           <%= link "Login", to: Routes.session_path(@conn, :new) %>
         <% end %>
-      </div>
-    
-    </header>
+      </nav>
+      
+      <main class="mx-auto p-10 border-2 border-red-600">
 
-    <main role="main" class="container mx-auto px-2">
-      <p class="alert alert-info" role="alert"><%= get_flash(@conn, :info) %></p>
-      <p class="alert alert-danger" role="alert"><%= get_flash(@conn, :error) %></p>
-      <%= render @view_module, @view_template, assigns %>
-    </main>
+        <%= render @view_module, @view_template, assigns %>
+
+      </main>
+    </div>
     <script type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
+
+    <script>
+      function toggleNav() {
+        if (document.getElementById("side_bar").style.display !== "block") {
+          document.getElementById("side_bar").style.display = "block";
+        } else {
+        document.getElementById("side_bar").style.display = "none";
+        }
+      }
+    </script>
+
   </body>
 </html>

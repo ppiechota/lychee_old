@@ -16,6 +16,7 @@
                         'Elixir.LycheeWeb.ErrorHelpers',
                         'Elixir.LycheeWeb.ErrorView',
                         'Elixir.LycheeWeb.Gettext',
+                        'Elixir.LycheeWeb.Helpers.IconHelper',
                         'Elixir.LycheeWeb.ItemLive',
                         'Elixir.LycheeWeb.LayoutView',
                         'Elixir.LycheeWeb.PageController',

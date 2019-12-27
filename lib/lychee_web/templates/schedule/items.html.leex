@@ -1,6 +1,11 @@
-<form action="#" phx-submit="search">
-  <%= text_input :search, :phrase, placeholder: "What item do you want to search for?" %>
-  <%= submit "Search", phx_disable_with: "Searching..." %>
+<form class="inline-flex py-3" action="#" phx-submit="search" autocomplete="off">
+  <%= text_input :search, :phrase, 
+      class: "shadow rounded-lg px-4 py-2 focus:outline-none focus:shadow-outline", 
+      placeholder: "Wprowadź nazwę..." %>
+  
+  <%= submit "Search", 
+      class: "shadow bg-gray-700 text-white rounded-lg px-4 py-2 ml-2 font-medium focus:outline-none focus:shadow-outline", 
+      phx_disable_with: "Searching..." %>
 </form>
 
 <%= for item <- @items do %>

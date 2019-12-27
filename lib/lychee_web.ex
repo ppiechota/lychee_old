@@ -40,6 +40,8 @@ defmodule LycheeWeb do
       # Use all HTML functionality (forms, tags, etc)
       use Phoenix.HTML
 
+      import LycheeWeb.Helpers.IconHelper
+
       import LycheeWeb.ErrorHelpers
       import LycheeWeb.Gettext
       alias LycheeWeb.Router.Helpers, as: Routes
