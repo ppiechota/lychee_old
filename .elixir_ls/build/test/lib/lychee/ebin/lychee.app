@@ -28,6 +28,7 @@
                         'Elixir.LycheeWeb.ScheduleView',
                         'Elixir.LycheeWeb.SessionController',
                         'Elixir.LycheeWeb.SessionView',
+                        'Elixir.LycheeWeb.SharedView',
                         'Elixir.LycheeWeb.UserController',
                         'Elixir.LycheeWeb.UserSocket',
                         'Elixir.LycheeWeb.UserView']},
