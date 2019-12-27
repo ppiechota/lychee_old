@@ -97,6 +97,8 @@ defmodule Lychee do
     @repo.all(query)
   end
 
+  def new_item, do: Item.changeset(%Item{})
+
   def get_user(id), do: @repo.get!(User, id)
 
   def new_user, do: User.changeset_with_password(%User{})

@@ -13,12 +13,14 @@
     <div id="main" class="w-screen border-2 border-red-600"> 
 
       <header class="flex justify-between bg-gray-900 px-10 py-3">
+
         <div class="flex justify-start text-white"> 
           <button class="py-2" onclick="toggleNav()">
             <%= icon_tag(@conn, "menu", class: "h-6 w-6 text-white fill-current") %>
           </button>
           <div class="px-4 py-2">Lychee</div>
         </div>
+
         <div class="text-blue-300">
           <%= if @current_user do %>
             Logged in as <%= @current_user.username %>
@@ -31,19 +33,12 @@
             <%= link "Login", to: Routes.session_path(@conn, :new) %>
           <% end %>
         </div>
+
       </header>
 
-      <nav id="side_bar" class="fixed hidden w-screen h-screen-1/2 bg-gray-900">
-        <%= if @current_user do %>
-          Logged in as <%= @current_user.username %>
-          |
-          <%= link "Log out", to: Routes.session_path(@conn, :delete), method:
-          :delete %>
-        <% else %>
-          <%= link "Sign up", to: Routes.user_path(@conn, :new) %> 
-          |
-          <%= link "Login", to: Routes.session_path(@conn, :new) %>
-        <% end %>
+      <nav id="side_bar" class="hidden w-screen h-48 bg-gray-900 flex justify-between px-10 py-3">
+        <%= link "Produkty", class: "text-white block py-3", to: Routes.item_path(@conn, :index) %>
+        <%= link "Kalendarz", class: "text-white block py-3", to: Routes.schedule_path(@conn, :show, Date.utc_today() |> Date.to_string()) %> 
       </nav>
       
       <main class="mx-auto p-10 border-2 border-red-600">

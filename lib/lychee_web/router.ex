@@ -28,8 +28,8 @@ defmodule LycheeWeb.Router do
     post "/login", SessionController, :create
     delete "/logout", SessionController, :delete
 
-    resources "/schedule", ScheduleController, [:show, :edit]
+    resources "/schedule", ScheduleController, only: [:show, :edit]
 
-    resources "/item", ItemController, [:index, :show, :edit]
+    resources "/item", ItemController, only: [:index, :show, :edit, :new, :create]
   end
 end

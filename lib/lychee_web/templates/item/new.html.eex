@@ -1,0 +1,22 @@
+<div class="flex justify-center items-center">
+
+
+<div class="flex flex-col">
+  <h3 class="text-gray-900 text-xl self-center">
+    Dodaj produkt
+  </h3>
+
+<%= form_for @item, Routes.item_path(@conn, :create), [autocomplete: "off", class: "flex flex-col py-3"],
+ fn f -> %>
+  <%= input_tag(f, :name, "Nazwa") %>
+  <%= input_tag(f, :kcal, "Kcal") %>
+  <%= input_tag(f, :carbs, "Węglowodany") %>
+  <%= input_tag(f, :proteins, "Białko") %>
+  <%= input_tag(f, :fat, "Tłuszcze") %>
+
+  <div class="flex flex-row py-3 self-end">
+    <%= button_tag(@conn, "Dodaj", type: "submit") %>
+  </div>
+</div>
+</div>
+<% end %>

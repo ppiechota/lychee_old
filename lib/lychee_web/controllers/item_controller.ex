@@ -12,6 +12,11 @@ defmodule LycheeWeb.ItemController do
     render(conn, "index.html", items: items)
   end
 
+  def new(conn, _params) do
+    item = Lychee.new_item
+    render(conn, "new.html", item: item)
+  end
+
   def edit(conn, %{"id" => id}) do
     live_render(conn, LycheeWeb.ItemLive,
       session: %{schedule_id: id, user_id: conn.assigns.current_user.id}
