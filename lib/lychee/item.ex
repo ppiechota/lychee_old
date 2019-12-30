@@ -14,5 +14,9 @@ defmodule Lychee.Item do
     item
     |> Ecto.Changeset.cast(params, [:name, :kcal, :carbs, :proteins, :fat])
     |> Ecto.Changeset.validate_required(:name)
+    |> Ecto.Changeset.validate_required(:kcal)
+    |> Ecto.Changeset.validate_required(:carbs)
+    |> Ecto.Changeset.validate_required(:proteins)
+    |> Ecto.Changeset.validate_required(:fat)
   end
 end
