@@ -79,7 +79,8 @@ defmodule Lychee do
   @spec search_items(String.t()) :: [%Item{}]
 
   def search_items(name) do
-    query = from(a in Item, where: a.name == ^name)
+    like_term = "%#{name}%"
+    query = from(a in Item, where: ilike(a.name, ^like_term))
     @repo.all(query)
   end
 
