@@ -2,18 +2,13 @@ defmodule LycheeWeb.ItemController do
   use LycheeWeb, :controller
   require IEx
 
-  # def show(conn, %{"id" => id}) do
-  #   items = Lychee.get_schedule_items(id)
-  #   render(conn, "show.html", id: id, items: items)
-  # end
-
   def index(conn, _assigns) do
     items = Lychee.get_all_items()
     render(conn, "index.html", items: items)
   end
 
   def new(conn, _params) do
-    item = Lychee.new_item
+    item = Lychee.new_item()
     render(conn, "new.html", item: item)
   end
 
@@ -21,5 +16,15 @@ defmodule LycheeWeb.ItemController do
     live_render(conn, LycheeWeb.ItemLive,
       session: %{schedule_id: id, user_id: conn.assigns.current_user.id}
     )
+  end
+
+  def delete(conn, %{"id" => id}) do
+    Lychee.delete_item(id)
+    redirect(conn, to: Routes.item_path(conn, :index))
+  end
+
+  def create(conn, %{"item" => item_params}) do
+    {:ok, _item} = Lychee.insert_item(item_params)
+    redirect(conn, to: Routes.item_path(conn, :index))
   end
 end

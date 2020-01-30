@@ -21,23 +21,6 @@ defmodule Lychee do
     ### Parameters
 
       - schedule_id: Number that represents the id of a schedule.
-
-    ### Examples
-
-      iex> Lychee.get_schedule_items(1)
-      [
-        %Lychee.Item{
-          __meta__: #Ecto.Schema.Metadata<:loaded, "items">,
-          carbs: #Decimal<10>,
-          fat: #Decimal<31>,
-          id: 3,
-          inserted_at: ~N[2019-11-02 00:00:00],
-          kcal: #Decimal<340>,
-          name: "Awokado",
-          proteins: #Decimal<5>,
-          updated_at: ~N[2019-11-02 00:00:00]
-        }
-      ]
   """
   @spec get_schedule_items(number()) :: [%Item{}]
 
@@ -46,7 +29,8 @@ defmodule Lychee do
       from i in Item,
         join: s in Schedule,
         on: i.id == s.item_id,
-        where: s.schedule_id == ^schedule_id
+        where: s.schedule_id == ^schedule_id,
+        select: merge(map(i, [:name, :kcal, :proteins, :fat, :carbs]), map(s, [:id]))
 
     @repo.all(query)
   end
@@ -57,25 +41,7 @@ defmodule Lychee do
     ### Parameters
 
       - name: String that represents the name of an item.
-
-    ### Examples
-
-      iex> Lychee.search_items("Awokado")
-      [
-        %Lychee.Item{
-          __meta__: #Ecto.Schema.Metadata<:loaded, "items">,
-          carbs: #Decimal<10>,
-          fat: #Decimal<31>,
-          id: 3,
-          inserted_at: ~N[2019-11-02 00:00:00],
-          kcal: #Decimal<340>,
-          name: "Awokado",
-          proteins: #Decimal<5>,
-          updated_at: ~N[2019-11-02 00:00:00]
-        }
-      ]
   """
-
   @spec search_items(String.t()) :: [%Item{}]
 
   def search_items(name) do
@@ -88,14 +54,28 @@ defmodule Lychee do
     Lists all items
 
     ### Parameters
-
   """
-
   @spec get_all_items() :: [%Item{}]
 
   def get_all_items() do
     query = from(a in Item)
     @repo.all(query)
+  end
+
+  def insert_item(attrs) do
+    %Item{}
+    |> Item.changeset(attrs)
+    |> @repo.insert
+  end
+
+  def delete_item(item_id) do
+    from(i in Item, where: i.id == ^item_id)
+    |> @repo.delete_all
+  end
+
+  def delete_item_from_schedule(item_id) do
+    from(s in Schedule, where: s.id == ^item_id)
+    |> @repo.delete_all
   end
 
   def new_item, do: Item.changeset(%Item{})

@@ -5,7 +5,7 @@
       Wszystkie produkty
     </h3>
 
-  <%= render(LycheeWeb.SharedView, "items.html", items: @items) %>
+  <%= render(LycheeWeb.SharedView, "items.html", conn: @conn, items: @items) %>
 
   <%= link "Dodaj", 
       to: Routes.item_path(@conn, :new), 

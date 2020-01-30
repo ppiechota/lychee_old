@@ -3,7 +3,3 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
-/* .h-screen {
-  height: calc(100vh - 9rem) !important;
-} */
