@@ -14,20 +14,6 @@ defmodule LycheeWeb.Helpers.IconHelper do
     end
   end
 
-  def button_tag(conn, name, opts \\ []) do
-    optional_classes = Keyword.get(opts, :class, "")
-
-    classes =
-      "self-end shadow bg-gray-700 text-white rounded-lg px-4 py-2 ml-2 font-medium focus:outline-none focus:shadow-outline " <>
-        optional_classes
-
-    type = Keyword.get(opts, :type, "")
-
-    content_tag(:button, class: classes, type: type) do
-      name
-    end
-  end
-
   def btn(name, opts \\ [])
 
   def btn(name, :submit) do
@@ -41,7 +27,7 @@ defmodule LycheeWeb.Helpers.IconHelper do
 
   def btn(name, opts) do
     to = Keyword.get(opts, :to, "")
-    method = Keyword.get(opts, :method, "GET")
+    method = Keyword.get(opts, :method, :get)
 
     class = "self-end shadow bg-blue-400 text-white rounded-lg px-4
       py-2 ml-2 font-medium focus:outline-none focus:shadow-outline"

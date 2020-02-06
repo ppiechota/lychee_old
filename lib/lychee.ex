@@ -15,15 +15,8 @@ defmodule Lychee do
     # TODO: error logic
   end
 
-  @doc """
-    Shows items from a provided schedule.
-
-    ### Parameters
-
-      - schedule_id: Number that represents the id of a schedule.
-  """
+  @doc "Shows items from a provided schedule."
   @spec get_schedule_items(number()) :: [%Item{}]
-
   def get_schedule_items(schedule_id) do
     query =
       from i in Item,
@@ -35,28 +28,26 @@ defmodule Lychee do
     @repo.all(query)
   end
 
-  @doc """
-    Searches for an item with a `name`.
+  @doc "Get item by id"
+  @spec get_item(Integer.t()) :: %Item{}
+  def get_item(id), do: @repo.get!(Item, id)
 
-    ### Parameters
+  @doc "Edit item by id"
+  def edit_item(id) do
+    get_item(id)
+    |> Item.changeset()
+  end
 
-      - name: String that represents the name of an item.
-  """
+  @doc "Searches for an item with a `name`."
   @spec search_items(String.t()) :: [%Item{}]
-
   def search_items(name) do
     like_term = "%#{name}%"
     query = from(a in Item, where: ilike(a.name, ^like_term))
     @repo.all(query)
   end
 
-  @doc """
-    Lists all items
-
-    ### Parameters
-  """
+  @doc "Lists all items"
   @spec get_all_items() :: [%Item{}]
-
   def get_all_items() do
     query = from(a in Item)
     @repo.all(query)
@@ -71,6 +62,12 @@ defmodule Lychee do
   def delete_item(item_id) do
     from(i in Item, where: i.id == ^item_id)
     |> @repo.delete_all
+  end
+
+  def update_item(id, attrs) do
+    get_item(id)
+    |> Item.changeset(attrs)
+    |> @repo.update
   end
 
   def delete_item_from_schedule(item_id) do

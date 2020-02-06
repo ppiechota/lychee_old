@@ -13,9 +13,8 @@ defmodule LycheeWeb.ItemController do
   end
 
   def edit(conn, %{"id" => id}) do
-    live_render(conn, LycheeWeb.ItemLive,
-      session: %{schedule_id: id, user_id: conn.assigns.current_user.id}
-    )
+    item = Lychee.edit_item(id)
+    render(conn, "edit.html", item: item)
   end
 
   def delete(conn, %{"id" => id}) do
@@ -25,6 +24,11 @@ defmodule LycheeWeb.ItemController do
 
   def create(conn, %{"item" => item_params}) do
     {:ok, _item} = Lychee.insert_item(item_params)
+    redirect(conn, to: Routes.item_path(conn, :index))
+  end
+
+  def update(conn, %{"id" => id, "item" => item_params}) do
+    Lychee.update_item(id, item_params)
     redirect(conn, to: Routes.item_path(conn, :index))
   end
 end

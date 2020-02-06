@@ -19,7 +19,7 @@
     <%= password_input f, :password, class: "shadow rounded-lg px-4 py-2 focus:outline-none focus:shadow-outline" %>
   </div>
   <div class="flex flex-row py-3 self-end">
-    <%= button_tag(@conn, "Zaloguj", type: "submit") %>
+    <%= btn("Zaloguj", :submit) %>
   </div>
 </div>
 </div>

@@ -19,7 +19,7 @@ defmodule LycheeWeb.Router do
   scope "/", LycheeWeb do
     pipe_through :browser
 
-    live "/", CounterLive
+    get "/", SessionController, :new
 
     get "/users", UserController, :new
     post "/users", UserController, :create
@@ -30,6 +30,7 @@ defmodule LycheeWeb.Router do
 
     resources "/schedule", ScheduleController
 
-    resources "/item", ItemController, only: [:index, :show, :edit, :new, :create, :delete]
+    resources "/item", ItemController,
+      only: [:index, :show, :edit, :new, :create, :delete, :update]
   end
 end

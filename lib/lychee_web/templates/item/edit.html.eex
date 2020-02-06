@@ -5,6 +5,6 @@
       Dodaj produkt
     </h3>
 
-    <%= render("form.html", item: @item, action: Routes.item_path(@conn, :create)) %>
+    <%= render("form.html", item: @item, conn: @conn, action: Routes.item_path(@conn, :update, @item.data)) %>
   </div>
 </div>
