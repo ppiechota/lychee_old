@@ -4,7 +4,7 @@ defmodule Lychee do
   """
 
   import Ecto.Query
-  alias Lychee.{User, Password, Item, Schedule}
+  alias Lychee.{User, Password, Item, Schedule, Meal}
   @repo Lychee.Repo
 
   def add_item_to_schedule(item_id, schedule_id, user_id) do
@@ -94,5 +94,27 @@ defmodule Lychee do
     else
       _ -> Password.dummy_verify()
     end
+  end
+
+  # MEALS handling functions
+  def new_meal, do: Meal.changeset(%Meal{})
+
+  def insert_meal(attrs) do
+    %Meal{}
+    |> Meal.changeset(attrs)
+    |> @repo.insert
+  end
+
+  def delete_meal(meal_id) do
+    from(i in Meal, where: i.id == ^meal_id)
+    |> @repo.delete_all
+  end
+
+  def get_meal(meal_id), do: @repo.get!(Meal, meal_id)
+
+  def update_meal(meal_id, attrs) do
+    get_meal(meal_id)
+    |> Meal.changeset(attrs)
+    |> @repo.update
   end
 end
