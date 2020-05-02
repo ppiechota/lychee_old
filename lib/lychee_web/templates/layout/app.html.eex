@@ -38,6 +38,7 @@
 
       <nav id="side_bar" class="hidden w-screen h-48 bg-gray-900 flex justify-between px-10 py-3">
         <%= link "Produkty", class: "text-white block py-3", to: Routes.item_path(@conn, :index) %>
+        <%= link "Posiłki", class: "text-white block py-3", to: Routes.meal_path(@conn, :index) %>
         <%= link "Kalendarz", class: "text-white block py-3", to: Routes.schedule_path(@conn, :show, Date.utc_today() |> Date.to_string()) %> 
       </nav>
       

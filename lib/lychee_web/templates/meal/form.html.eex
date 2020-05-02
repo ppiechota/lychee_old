@@ -1,0 +1,9 @@
+<%= form_for @meal, @action, [autocomplete: "off", class: "flex flex-col py-3"],
+  fn f -> %>
+    <%= input_tag(f, :meal_name, "Nazwa") %>
+
+    <div class="flex flex-row py-3 self-end">
+      <%= btn("Cofnij", to: @back_action) %> 
+      <%= btn("Dodaj", :submit) %>
+    </div>
+<% end %>

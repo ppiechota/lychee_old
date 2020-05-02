@@ -32,5 +32,8 @@ defmodule LycheeWeb.Router do
 
     resources "/item", ItemController,
       only: [:index, :show, :edit, :new, :create, :delete, :update]
+
+    resources "/meal", MealController,
+      only: [:index, :show, :edit, :new, :create, :delete, :update]
   end
 end

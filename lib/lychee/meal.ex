@@ -4,7 +4,7 @@ defmodule Lychee.Meal do
   schema "meals" do
     field(:meal_name, :string, size: 100)
     belongs_to(:user, Lychee.User)
-    has_many(:items, Lychee.Ingredient, foreign_key: :meal_id, references: :id)
+    has_many(:ingredients, Lychee.Ingredient, foreign_key: :meal_id)
     timestamps()
   end
 

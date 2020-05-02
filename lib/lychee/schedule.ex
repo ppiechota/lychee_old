@@ -6,15 +6,16 @@ defmodule Lychee.Schedule do
     field(:schedule_id, :string)
     field(:schedule_date, :date)
     belongs_to(:user, Lychee.User)
-    belongs_to(:item, Lychee.Item)
+    belongs_to(:meal, Lychee.Meal)
+    field(:weight, :decimal)
     timestamps()
   end
 
   def changeset(schedule, params \\ %{}) do
     schedule
-    |> cast(params, [:item_id, :user_id, :schedule_id])
-    |> validate_required([:item_id, :user_id, :schedule_id])
-    |> assoc_constraint(:item)
+    |> cast(params, [:meal_id, :user_id, :schedule_id])
+    |> validate_required([:meal_id, :user_id, :schedule_id])
+    |> assoc_constraint(:meal)
     |> assoc_constraint(:user)
   end
 end

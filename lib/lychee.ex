@@ -4,28 +4,31 @@ defmodule Lychee do
   """
 
   import Ecto.Query
-  alias Lychee.{User, Password, Item, Schedule, Meal}
+  alias Lychee.{User, Password, Item, Schedule, Meal, Ingredient}
   @repo Lychee.Repo
 
-  def add_item_to_schedule(item_id, schedule_id, user_id) do
+  def add_meal_to_schedule(meal_id, schedule_id, user_id) do
     %Schedule{}
-    |> Schedule.changeset(%{item_id: item_id, schedule_id: schedule_id, user_id: user_id})
+    |> Schedule.changeset(%{
+      meal_id: meal_id,
+      schedule_id: schedule_id,
+      user_id: user_id
+    })
     |> @repo.insert
+  end
 
-    # TODO: error logic
+  def delete_meal_from_schedule(schedule_id, meal_id) do
+    from(s in Schedule, where: s.schedule_id == ^schedule_id and s.meal_id == ^meal_id)
+    |> @repo.delete_all
   end
 
   @doc "Shows items from a provided schedule."
-  @spec get_schedule_items(number()) :: [%Item{}]
-  def get_schedule_items(schedule_id) do
-    query =
-      from i in Item,
-        join: s in Schedule,
-        on: i.id == s.item_id,
+  def get_schedule_meals(schedule_id) do
+    @repo.all(
+      from s in "schedule_v",
         where: s.schedule_id == ^schedule_id,
-        select: merge(map(i, [:name, :kcal, :proteins, :fat, :carbs]), map(s, [:id]))
-
-    @repo.all(query)
+        select: map(s, [:meal_id, :meal_name, :kcal, :proteins, :fat, :carbs])
+    )
   end
 
   @doc "Get item by id"
@@ -70,11 +73,6 @@ defmodule Lychee do
     |> @repo.update
   end
 
-  def delete_item_from_schedule(item_id) do
-    from(s in Schedule, where: s.id == ^item_id)
-    |> @repo.delete_all
-  end
-
   def new_item, do: Item.changeset(%Item{})
 
   def get_user(id), do: @repo.get!(User, id)
@@ -112,9 +110,37 @@ defmodule Lychee do
 
   def get_meal(meal_id), do: @repo.get!(Meal, meal_id)
 
+  def get_meal_with_ingredients(meal_id) do
+    @repo.get!(Meal, meal_id)
+    |> @repo.preload(:ingredients)
+  end
+
+  def get_all_meals() do
+    query = from(a in Meal)
+    @repo.all(query)
+  end
+
   def update_meal(meal_id, attrs) do
     get_meal(meal_id)
     |> Meal.changeset(attrs)
     |> @repo.update
+  end
+
+  def search_meals(name) do
+    like_term = "%#{name}%"
+    query = from(a in Meal, where: ilike(a.meal_name, ^like_term))
+    @repo.all(query)
+  end
+
+  # Ingredients handling functions
+  def insert_ingredient(attrs) do
+    %Ingredient{}
+    |> Ingredient.changeset(attrs)
+    |> @repo.insert
+  end
+
+  def delete_ingredient(meal_id, item_id) do
+    from(i in Ingredient, where: i.meal_id == ^meal_id and i.item_id == ^item_id)
+    |> @repo.delete_all
   end
 end

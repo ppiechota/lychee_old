@@ -5,23 +5,25 @@ defmodule LycheeWeb.ItemLive do
   require IEx
 
   def mount(%{schedule_id: schedule_id, user_id: user_id}, socket) do
-    items = Lychee.search_items("")
+    meals = Lychee.search_meals("")
 
-    {:ok, assign(socket, items: items, schedule_id: schedule_id, user_id: user_id)}
+    {:ok, assign(socket, meals: meals, schedule_id: schedule_id, user_id: user_id)}
   end
 
   def handle_event("search", %{"search" => %{"phrase" => phrase}}, socket) do
-    items = Lychee.search_items(phrase)
+    meals = Lychee.search_meals(phrase)
 
-    {:noreply, assign(socket, items: items)}
+    {:noreply, assign(socket, meals: meals)}
   end
 
   def handle_event(
-        "add_item",
-        %{"item_id" => item_id, "schedule_id" => schedule_id, "user_id" => user_id},
-        socket
+        "add_meal",
+        %{"meal" => %{"id" => meal_id}},
+        %{assigns: %{schedule_id: schedule_id, user_id: user_id}} = socket
       ) do
-    Lychee.add_item_to_schedule(item_id, schedule_id, user_id)
+    # IEx.pry()
+
+    Lychee.add_meal_to_schedule(meal_id, schedule_id, user_id)
 
     schedule_path =
       Routes.schedule_path(
